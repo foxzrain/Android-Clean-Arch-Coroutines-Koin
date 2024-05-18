@@ -1,6 +1,6 @@
 package com.android.post.data.repository
 
-import com.android.post.di.module.NetworkModule
+import com.android.post.di.NetworkModule
 import com.android.post.di.module.PostModule
 import org.junit.Test
 import org.koin.core.logger.Level

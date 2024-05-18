@@ -11,7 +11,7 @@ import com.android.post.domain.usecase.base.UseCaseResponse
 import kotlinx.coroutines.cancel
 
 
-class PostsViewModel constructor(private val getPostsUseCase: GetPostsUseCase) : ViewModel() {
+class PostsViewModel(private val getPostsUseCase: GetPostsUseCase) : ViewModel() {
 
     val postsData = MutableLiveData<List<Post>>()
     val showProgressbar = MutableLiveData<Boolean>()

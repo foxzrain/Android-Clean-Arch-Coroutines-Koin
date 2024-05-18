@@ -5,9 +5,9 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
-import com.android.post.R
 import com.android.post.domain.model.Post
-import com.android.post.databinding.HolderPostBinding
+import com.example.post.R
+import com.example.post.databinding.HolderPostBinding
 import kotlin.properties.Delegates
 
 class PostsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {

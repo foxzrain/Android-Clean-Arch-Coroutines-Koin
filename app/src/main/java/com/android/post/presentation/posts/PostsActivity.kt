@@ -8,13 +8,10 @@ import android.widget.Toast.LENGTH_LONG
 import android.widget.Toast.LENGTH_SHORT
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
-import com.android.post.R
-import com.android.post.databinding.ActivityPostsBinding
 import com.android.post.utils.isNetworkAvailable
-import kotlinx.android.synthetic.main.activity_posts.*
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import org.koin.android.viewmodel.ext.android.viewModel
+import com.example.post.R
+import com.example.post.databinding.ActivityPostsBinding
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PostsActivity : AppCompatActivity() {
 
@@ -41,18 +38,18 @@ class PostsActivity : AppCompatActivity() {
 
         with(postViewModel) {
 
-            postsData.observe(this@PostsActivity, Observer {
+            postsData.observe(this@PostsActivity) {
                 activityPostsBinding.postsProgressBar.visibility = GONE
                 mAdapter?.mPostList = it
-            })
+            }
 
-            messageData.observe(this@PostsActivity, Observer {
+            messageData.observe(this@PostsActivity) {
                 Toast.makeText(this@PostsActivity, it, LENGTH_LONG).show()
-            })
+            }
 
-            showProgressbar.observe(this@PostsActivity, Observer { isVisible ->
-                posts_progress_bar.visibility = if (isVisible) VISIBLE else GONE
-            })
+            showProgressbar.observe(this@PostsActivity) { isVisible ->
+                activityPostsBinding.postsProgressBar.visibility = if (isVisible) VISIBLE else GONE
+            }
         }
     }
 
