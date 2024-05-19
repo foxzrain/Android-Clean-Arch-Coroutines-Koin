@@ -4,7 +4,6 @@ import com.android.post.data.repository.PostsRepositoryImp
 import com.android.post.data.source.remote.ApiService
 import com.android.post.domain.repository.PostsRepository
 import com.android.post.domain.usecase.GetPostsUseCase
-import com.example.post.BuildConfig
 import com.squareup.moshi.Moshi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -19,7 +18,7 @@ val NetworkModule = module {
 
     single { createService(get()) }
 
-    single { createRetrofit(get(), BuildConfig.BASE_URL) }
+    single { createRetrofit(get(), "https://medium.com/") }
 
     single { createOkHttpClient() }
 
@@ -42,17 +41,10 @@ fun createRetrofit(okHttpClient: OkHttpClient, url: String): Retrofit {
     return Retrofit.Builder()
         .baseUrl(url)
         .client(okHttpClient)
-        .addConverterFactory(MoshiConverterFactory.create()).build()
+        .addConverterFactory(MoshiConverterFactory.create())
+        .build()
 }
 
 fun createService(retrofit: Retrofit): ApiService {
     return retrofit.create(ApiService::class.java)
-}
-
-fun createPostRepository(apiService: ApiService): PostsRepository {
-    return PostsRepositoryImp(apiService)
-}
-
-fun createGetPostsUseCase(postsRepository: PostsRepository): GetPostsUseCase {
-    return GetPostsUseCase(postsRepository)
 }
