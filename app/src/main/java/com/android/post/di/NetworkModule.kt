@@ -1,9 +1,6 @@
 package com.android.post.di
 
-import com.android.post.data.repository.PostsRepositoryImp
-import com.android.post.data.source.remote.ApiService
-import com.android.post.domain.repository.PostsRepository
-import com.android.post.domain.usecase.GetPostsUseCase
+import com.android.post.data.remote.ApiService
 import com.squareup.moshi.Moshi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
