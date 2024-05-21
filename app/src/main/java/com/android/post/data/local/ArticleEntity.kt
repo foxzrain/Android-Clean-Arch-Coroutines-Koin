@@ -5,8 +5,8 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "articles")
 data class ArticleEntity(
-    @PrimaryKey val id: String,
+    @PrimaryKey val link: String,
     val title: String,
-    val content: String,
-    val pubDate: String
+    val pubDate: String,
+    val content: String
 )

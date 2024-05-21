@@ -1,5 +1,13 @@
 package com.android.post
 
+import androidx.lifecycle.MutableLiveData
+import com.android.post.data.Repository
+import com.android.post.data.local.ArticleEntity
+import com.android.post.ui.main.MainViewModel
+import io.mockk.Runs
+import io.mockk.coEvery
+import io.mockk.just
+import io.mockk.mockk
 import org.junit.Test
 
 import org.junit.Assert.*
@@ -9,9 +17,18 @@ import org.junit.Assert.*
  *
  * See [testing documentation](http://d.android.com/tools/testing).
  */
-class ExampleUnitTest {
+class ExampleUnitTest : KoinTest {
+    private val repository: Repository = mockk()
+    private val viewModel = MainViewModel(repository)
+
     @Test
-    fun addition_isCorrect() {
-        assertEquals(4, 2 + 2)
+    fun `fetchArticles updates articles LiveData`() = runBlockingTest {
+        val articles = listOf(ArticleEntity("1", "Title", "Content", "Date"))
+        coEvery { repository.refreshArticles() } just Runs
+        coEvery { repository.articles } returns MutableLiveData(articles)
+
+        viewModel.fetchArticles()
+
+        assertEquals(articles, viewModel.articles.getOrAwaitValue())
     }
 }

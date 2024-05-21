@@ -1,25 +1,21 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    ext.kotlin_version = '1.9.24'
-    ext.retrofit_version = '2.11.0'
-    ext.moshi_version = '1.15.1'
-    ext.converter_moshi_version = '2.11.0'
-    ext.mokito_kotlin_version = "1.5.0"
-    ext.mokito_inline_version = "2.11.0"
-    ext.coroutines_version = '1.8.1'
-    ext.koin_version = "2.0.1"
-    ext.koin_architecture_version = "0.8.2"
-    ext.mockk_version = '1.13.11'
-    ext.lifecycle_viewmodel_version = "2.2.0"
+    ext {
+        kotlin_version = "1.7.0"
+        koin_version = "3.1.5"
+        coroutine_version = "1.6.0"
+        room_version = "2.4.2"
+        gradle_version = "8.3.2"
+    }
 
     repositories {
         google()
         mavenCentral()
-        
+
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.3.2'
+        classpath "com.android.tools.build:gradle:$gradle_version"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -30,7 +26,6 @@ allprojects {
     repositories {
         google()
         mavenCentral()
-        
     }
 }
 

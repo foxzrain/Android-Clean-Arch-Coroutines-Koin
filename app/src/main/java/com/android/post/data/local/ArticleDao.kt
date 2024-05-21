@@ -1,16 +1,17 @@
 package com.android.post.data.local
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ArticleDao {
     @Query("SELECT * FROM articles")
-    fun getAllArticles(): LiveData<List<ArticleEntity>>
+    fun getAllArticles(): Flow<List<ArticleEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(articles: List<ArticleEntity>)
+    suspend fun insertArticles(articles: List<ArticleEntity>)
 }
+

@@ -1,24 +1,20 @@
 package com.android.post.data
 
-import androidx.lifecycle.LiveData
 import com.android.post.data.local.ArticleDao
 import com.android.post.data.local.ArticleEntity
-import com.android.post.data.remote.RemoteDataSource
+import com.android.post.data.remote.ApiService
+import kotlinx.coroutines.flow.Flow
 
-
-class Repository(
-    private val remoteDataSource: RemoteDataSource,
-    private val articleDao: ArticleDao
+class ArticleRepository(
+    private val articleDao: ArticleDao,
+    private val apiService: ApiService
 ) {
-    val articles: LiveData<List<ArticleEntity>> = articleDao.getAllArticles()
+    val articles: Flow<List<ArticleEntity>> = articleDao.getAllArticles()
 
     suspend fun refreshArticles() {
-        val response = remoteDataSource.getArticles()
-        if (response.isSuccessful) {
-            response.body()?.let {
-                val articles = it.toEntityList()
-                articleDao.insertAll(articles)
-            }
-        }
+        val articles = apiService.getArticles()
+        articleDao.insertArticles(articles.map {
+            ArticleEntity(it.link, it.title, it.pubDate, it.content)
+        })
     }
 }
