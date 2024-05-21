@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-parcelize'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -64,14 +65,14 @@ dependencies {
     implementation libraries.coroutinesAndroid
     implementation libraries.roomRuntime
     implementation libraries.appcompat
-    annotationProcessor  libraries.roomCompiler
+    kapt  libraries.roomCompiler
     implementation libraries.roomKtx
     implementation libraries.databindingRuntime
     implementation libraries.lifecycleLiveData
     implementation libraries.lifecycleViewModel
     implementation libraries.moshi
     implementation libraries.moshiKotlin
-    annotationProcessor libraries.moshiCodegen
+    kapt libraries.moshiCodegen
     implementation libraries.retrofit
     implementation libraries.retrofitMoshi
     implementation libraries.okhttpLogging

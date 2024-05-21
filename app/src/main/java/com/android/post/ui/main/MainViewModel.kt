@@ -13,7 +13,8 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class MainViewModel(private val repository: ArticleRepository) : ViewModel() {
-    val articles: LiveData<List<ArticleEntity>> = repository.articles.asLiveData()
+    private val _articles = MutableLiveData<List<ArticleEntity>>() // Private mutable LiveData
+    val articles: LiveData<List<ArticleEntity>> = _articles // Public read-only LiveData
 
     private val _error = MutableStateFlow<String?>(null)
     val error: StateFlow<String?> = _error
@@ -21,16 +22,14 @@ class MainViewModel(private val repository: ArticleRepository) : ViewModel() {
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> get() = _isLoading
 
-    init {
-        loadArticles()
-    }
-
     fun loadArticles() {
         viewModelScope.launch {
             _isLoading.value = true
             try {
-                repository.articles.collect {
-                    // No need to set value manually because articles is already as LiveData
+                // Collect articles from the repository
+                repository.articles.collect { articles ->
+                    // Update LiveData with the latest list of articles
+                    _articles.value = articles
                 }
             } finally {
                 _isLoading.value = false
@@ -42,8 +41,8 @@ class MainViewModel(private val repository: ArticleRepository) : ViewModel() {
         viewModelScope.launch {
             try {
                 _isLoading.value = true
-                val fetchedArticles = repository.fetchArticles()
-                // This will automatically update articles LiveData
+                // Fetch articles from the network and update the database
+                repository.fetchArticles()
             } catch (e: Exception) {
                 handleApiError(e)
             } finally {
@@ -57,5 +56,6 @@ class MainViewModel(private val repository: ArticleRepository) : ViewModel() {
         _error.value = apiError.getErrorMessage()
     }
 }
+
 
 
