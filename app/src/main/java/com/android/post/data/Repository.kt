@@ -1,9 +1,11 @@
 package com.android.post.data
 
-import com.android.post.data.local.ArticleDao
-import com.android.post.data.local.ArticleEntity
+import com.android.post.data.model.ArticleDao
+import com.android.post.data.model.ArticleEntity
 import com.android.post.data.remote.ApiService
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.withContext
 
 class ArticleRepository(
     private val articleDao: ArticleDao,
@@ -11,10 +13,11 @@ class ArticleRepository(
 ) {
     val articles: Flow<List<ArticleEntity>> = articleDao.getAllArticles()
 
-    suspend fun refreshArticles() {
-        val articles = apiService.getArticles()
-        articleDao.insertArticles(articles.map {
-            ArticleEntity(it.link, it.title, it.pubDate, it.content)
-        })
+    suspend fun fetchArticles(): List<ArticleEntity> {
+        return withContext(Dispatchers.IO) {
+            val articles = apiService.getArticles()
+            articleDao.insertArticles(articles)
+            return@withContext articles
+        }
     }
 }

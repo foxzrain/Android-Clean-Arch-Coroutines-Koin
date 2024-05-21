@@ -1,4 +1,4 @@
-package com.android.post.domain.model
+package com.android.post.domain.exception
 
 
 private const val BAD_REQUEST_ERROR_MESSAGE = "Bad Request!"

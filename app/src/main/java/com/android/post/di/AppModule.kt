@@ -2,7 +2,7 @@ package com.android.post.di
 
 import androidx.room.Room
 import com.android.post.data.ArticleRepository
-import com.android.post.data.local.AppDatabase
+import com.android.post.data.model.AppDatabase
 import com.android.post.ui.main.MainViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module

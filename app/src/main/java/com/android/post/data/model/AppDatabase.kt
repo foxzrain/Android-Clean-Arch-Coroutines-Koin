@@ -1,4 +1,4 @@
-package com.android.post.data.local
+package com.android.post.data.model
 
 import androidx.room.Database
 import androidx.room.RoomDatabase

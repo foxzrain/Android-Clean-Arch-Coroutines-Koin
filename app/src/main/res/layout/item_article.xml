@@ -7,7 +7,7 @@
 
         <variable
                 name="article"
-                type="com.android.post.data.local.ArticleEntity" />
+                type="com.android.post.data.model.ArticleEntity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -1,7 +1,5 @@
 package com.android.post.domain.exception
 
-import com.android.post.domain.model.ApiError
-import com.android.post.domain.model.UNKNOWN_ERROR_MESSAGE
 import retrofit2.HttpException
 import java.io.IOException
 import java.net.SocketTimeoutException
