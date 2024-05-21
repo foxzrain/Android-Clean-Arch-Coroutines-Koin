@@ -4,6 +4,6 @@ import com.android.post.data.local.ArticleEntity
 import retrofit2.http.GET
 
 interface ApiService {
-    @GET("https://medium.com/feed/@primoapp")
+    @GET("feed/@primoapp")
     suspend fun getArticles(): List<ArticleEntity>
 }

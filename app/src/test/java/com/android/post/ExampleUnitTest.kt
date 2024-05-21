@@ -3,7 +3,6 @@ package com.android.post
 import androidx.lifecycle.MutableLiveData
 import com.android.post.data.Repository
 import com.android.post.data.local.ArticleEntity
-import com.android.post.ui.main.MainViewModel
 import io.mockk.Runs
 import io.mockk.coEvery
 import io.mockk.just
