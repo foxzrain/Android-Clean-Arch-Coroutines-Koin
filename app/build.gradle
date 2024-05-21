@@ -52,35 +52,38 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-
-    // Libraries from dependencies.gradle
-    implementation libraries.multidex
-    implementation libraries.constraintlayout
-    implementation libraries.recyclerview
     implementation libraries.koinAndroid
     implementation libraries.koinAndroidCompat
     implementation libraries.koinCore
     implementation libraries.coroutinesCore
     implementation libraries.coroutinesAndroid
     implementation libraries.roomRuntime
-    implementation libraries.appcompat
-    kapt  libraries.roomCompiler
+    implementation 'androidx.test.ext:junit-ktx:1.1.5'
+    kapt libraries.roomCompiler
     implementation libraries.roomKtx
-    implementation libraries.databindingRuntime
-    implementation libraries.lifecycleLiveData
-    implementation libraries.lifecycleViewModel
     implementation libraries.moshi
     implementation libraries.moshiKotlin
     kapt libraries.moshiCodegen
     implementation libraries.retrofit
     implementation libraries.retrofitMoshi
     implementation libraries.okhttpLogging
-    androidTestImplementation libraries.espressoCore
-    testImplementation libraries.mockk
+    implementation libraries.multidex
+    implementation libraries.constraintlayout
+    implementation libraries.recyclerview
+    implementation libraries.databindingRuntime
+    implementation libraries.lifecycleLiveData
+    implementation libraries.lifecycleViewModel
+    implementation libraries.appcompat
+
+    // Testing dependencies
     testImplementation libraries.junit
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation libraries.espressoCore
+    androidTestImplementation 'androidx.test:runner:1.5.2'
+    testImplementation libraries.mockk
     testImplementation libraries.koinTestJUnit4
     testImplementation libraries.koinTest
     testImplementation libraries.coreTesting
+    androidTestImplementation 'androidx.test:core:1.5.0'
     testImplementation libraries.coroutinesTest
 }

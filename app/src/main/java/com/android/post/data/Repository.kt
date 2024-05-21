@@ -20,5 +20,11 @@ class ArticleRepository(
             return@withContext articles
         }
     }
+
+    suspend fun deleteAllArticles() {
+        return withContext(Dispatchers.IO) {
+            return@withContext articleDao.deleteAllArticles()
+        }
+    }
 }
 

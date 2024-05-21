@@ -7,7 +7,6 @@ import com.android.post.data.remote.ApiService
 import com.android.post.ui.main.MainActivity
 import com.android.post.ui.main.MainViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
-import org.koin.core.context.GlobalContext.get
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory

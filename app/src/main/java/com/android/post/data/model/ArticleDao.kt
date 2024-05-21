@@ -12,6 +12,9 @@ interface ArticleDao {
 
     @Insert
     suspend fun insertArticles(articles: List<ArticleEntity>)
+
+    @Query("DELETE FROM articles")
+    suspend fun deleteAllArticles()
 }
 
 
