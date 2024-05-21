@@ -3,6 +3,7 @@ package com.android.post.ui.main
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.android.post.data.ArticleRepository
 import com.android.post.data.model.ArticleEntity
@@ -12,8 +13,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class MainViewModel(private val repository: ArticleRepository) : ViewModel() {
-    private val _articles = MutableLiveData<List<ArticleEntity>>()
-    val articles: LiveData<List<ArticleEntity>> = _articles
+    val articles: LiveData<List<ArticleEntity>> = repository.articles.asLiveData()
 
     private val _error = MutableStateFlow<String?>(null)
     val error: StateFlow<String?> = _error
@@ -25,23 +25,29 @@ class MainViewModel(private val repository: ArticleRepository) : ViewModel() {
         loadArticles()
     }
 
-    private fun loadArticles() {
+    fun loadArticles() {
         viewModelScope.launch {
             _isLoading.value = true
-            repository.articles.collect {
-                _articles.value = it
+            try {
+                repository.articles.collect {
+                    // No need to set value manually because articles is already as LiveData
+                }
+            } finally {
+                _isLoading.value = false
             }
-            _isLoading.value = false
         }
     }
 
     fun refreshArticles() {
         viewModelScope.launch {
             try {
+                _isLoading.value = true
                 val fetchedArticles = repository.fetchArticles()
-                _articles.postValue(fetchedArticles)
+                // This will automatically update articles LiveData
             } catch (e: Exception) {
                 handleApiError(e)
+            } finally {
+                _isLoading.value = false
             }
         }
     }
@@ -51,3 +57,5 @@ class MainViewModel(private val repository: ArticleRepository) : ViewModel() {
         _error.value = apiError.getErrorMessage()
     }
 }
+
+
